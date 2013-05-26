@@ -51,29 +51,15 @@ maxCo           0.5;
 
 functions
 {
-    fieldAverage1
+    calcYPlusLES
     {
-        type            fieldAverage;
-        functionObjectLibs ( "libfieldFunctionObjects.so" );
-        enabled         true;
+        type            yPlusLES;
+        functionObjectLibs ("libutilityFunctionObjects.so");
+        enabled         yes;
+        phiName         phi;
+        log             yes;
         outputControl   outputTime;
-
-        fields
-        (
-            U
-            {
-                mean        on;
-                prime2Mean  on;
-                base        time;
-            }
-
-            p
-            {
-                mean        on;
-                prime2Mean  on;
-                base        time;
-            }
-        );
+        outputInterval  1;
     }
 }
 
