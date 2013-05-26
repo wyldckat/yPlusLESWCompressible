@@ -22,6 +22,14 @@ Description
     Calculates and reports yPlus for all wall patches, for the specified times
     when using LES turbulence models.
 
+    Default behaviour assumes operating in incompressible mode.
+    Use the -compressible option for compressible LES cases.
+    
+    Code based on:
+     - from yPlusRAS, got the information for the basis of the changes.
+     - from "src/postProcessing/functionObjects/utilities/yPlusLES" got how
+       the compressible version of yPlusLES is calculated.
+
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
