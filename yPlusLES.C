@@ -16,7 +16,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    yPlusLESWCOmpressible
+    yPlusLESWCompressible
 
 Description
     Calculates and reports yPlus for all wall patches, for the specified times
@@ -26,20 +26,92 @@ Description
 
 #include "fvCFD.H"
 #include "incompressible/singlePhaseTransportModel/singlePhaseTransportModel.H"
-#include "LESModel.H"
+
+#include "incompressible/LES/LESModel/LESModel.H"
+#include "compressible/LES/LESModel/LESModel.H"
+
 #include "nearWallDist.H"
 #include "wallDist.H"
 #include "wallFvPatch.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+void calcIncompressibleYPlus
+(
+    const fvMesh& mesh,
+    const Time& runTime,
+    const volVectorField& U,
+    volScalarField& yPlus
+)
+{
+
+    #include "createPhi.H"
+
+    singlePhaseTransportModel laminarTransport(U, phi);
+
+    autoPtr<incompressible::LESModel> sgsModel
+    (
+        incompressible::LESModel::New(U, phi, laminarTransport)
+    );
+
+    volScalarField::GeometricBoundaryField d = nearWallDist(mesh).y();
+    volScalarField nuEff(sgsModel->nuEff());
+
+    const fvPatchList& patches = mesh.boundary();
+
+    const volScalarField nuLam(sgsModel->nu());
+
+    bool foundNutPatch = false;
+    forAll(patches, patchi)
+    {
+        const fvPatch& currPatch = patches[patchi];
+
+        if (isA<wallFvPatch>(currPatch))
+        {
+            foundNutPatch = true;
+
+            yPlus.boundaryField()[patchi] =
+                d[patchi]
+                *sqrt
+                (
+                    nuEff.boundaryField()[patchi]
+                    *mag(U.boundaryField()[patchi].snGrad())
+                )
+                /nuLam.boundaryField()[patchi];
+            const scalarField& Yp = yPlus.boundaryField()[patchi];
+
+            Info<< "Patch " << patchi
+                << " named " << currPatch.name()
+                << " y+ : min: " << gMin(Yp) << " max: " << gMax(Yp)
+                << " average: " << gAverage(Yp) << nl << endl;
+        }
+    }
+
+    if (!foundNutPatch)
+    {
+        Info<< "    no " << wallFvPatch::typeName << " patches"
+            << endl;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     timeSelector::addOptions();
+
+    #include "addRegionOption.H"
+
+    argList::addBoolOption
+    (
+        "compressible",
+        "calculate compressible y+"
+    );
+
     #include "setRootCase.H"
     #include "createTime.H"
     instantList timeDirs = timeSelector::select0(runTime, args);
-    #include "createMesh.H"
+    #include "createNamedMesh.H"
+
+    const bool compressible = args.optionFound("compressible");
 
     forAll(timeDirs, timeI)
     {
@@ -72,59 +144,34 @@ int main(int argc, char *argv[])
             dimensionedScalar("yPlus", dimless, 0.0)
         );
 
-        Info<< "Reading field U\n" << endl;
-        volVectorField U
+        IOobject UHeader
         (
-            IOobject
-            (
-                "U",
-                runTime.timeName(),
-                mesh,
-                IOobject::MUST_READ,
-                IOobject::NO_WRITE
-            ),
-            mesh
+            "U",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::NO_WRITE
         );
 
-        #include "createPhi.H"
-
-        singlePhaseTransportModel laminarTransport(U, phi);
-
-        autoPtr<incompressible::LESModel> sgsModel
-        (
-            incompressible::LESModel::New(U, phi, laminarTransport)
-        );
-
-        volScalarField::GeometricBoundaryField d = nearWallDist(mesh).y();
-        volScalarField nuEff(sgsModel->nuEff());
-
-        const fvPatchList& patches = mesh.boundary();
-
-        const volScalarField nuLam(sgsModel->nu());
-
-        forAll(patches, patchi)
+        if (UHeader.headerOk())
         {
-            const fvPatch& currPatch = patches[patchi];
+            Info<< "Reading field U\n" << endl;
+            volVectorField U(UHeader, mesh);
 
-            if (isA<wallFvPatch>(currPatch))
+            if (compressible)
             {
-                yPlus.boundaryField()[patchi] =
-                    d[patchi]
-                   *sqrt
-                    (
-                        nuEff.boundaryField()[patchi]
-                       *mag(U.boundaryField()[patchi].snGrad())
-                    )
-                   /nuLam.boundaryField()[patchi];
-                const scalarField& Yp = yPlus.boundaryField()[patchi];
-
-                Info<< "Patch " << patchi
-                    << " named " << currPatch.name()
-                    << " y+ : min: " << gMin(Yp) << " max: " << gMax(Yp)
-                    << " average: " << gAverage(Yp) << nl << endl;
+                //calcCompressibleYPlus(mesh, runTime, U, yPlus);
+            }
+            else
+            {
+                calcIncompressibleYPlus(mesh, runTime, U, yPlus);
             }
         }
-
+        else
+        {
+            Info<< "    no U field" << endl;
+        }
+        
         Info<< "Writing yPlus to field "
             << yPlus.name() << nl << endl;
 
