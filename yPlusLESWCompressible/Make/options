@@ -9,7 +9,7 @@ EXE_INC = \
 EXE_LIBS = \
     -lcompressibleLESModels \
     -lincompressibleLESModels \
-    -lfluidThermophysicalModels \
+    -lbasicThermophysicalModels \
     -lincompressibleTransportModels \
     -lfiniteVolume \
     -lgenericPatchFields

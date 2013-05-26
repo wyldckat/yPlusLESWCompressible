@@ -8,4 +8,3 @@ runApplication blockMesh
 runApplication `getApplication`
 
 runApplication yPlusLESWCompressible
-runApplication foamCalc addSubtract yPlus subtract -field yPlusLES -resultName yPerror -time "0.001:"

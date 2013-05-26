@@ -45,18 +45,4 @@ timePrecision   6;
 
 runTimeModifiable true;
 
-functions
-{
-    calcYPlusLES
-    {
-        type            yPlusLES;
-        functionObjectLibs ("libutilityFunctionObjects.so");
-        enabled         yes;
-        phiName         phi;
-        log             yes;
-        outputControl   outputTime;
-        outputInterval  1;
-    }
-}
-
 // ************************************************************************* //

@@ -124,11 +124,11 @@ void calcCompressibleYPlus
     volScalarField& yPlus
 )
 {
-    autoPtr<fluidThermo> pThermo
+    autoPtr<basicThermo> pThermo
     (
-        fluidThermo::New(mesh)
+        basicThermo::New(mesh)
     );
-    fluidThermo& thermo = pThermo();
+    basicThermo& thermo = pThermo();
 
     volScalarField rho
     (
