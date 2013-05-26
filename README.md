@@ -34,20 +34,20 @@ This is bound to the same license as OpenFOAM, namely GNU Public License v3. Quo
 How to get+build yPlusLESWCompressible
 ======================================
 
-These instructions are for OpenFOAM 2.2.x:
+These instructions are for OpenFOAM 2.1.x:
 
 For getting and building from git:
 ```
 git clone git://github.com/wyldckat/yPlusLESWCompressible.git
 cd yPlusLESWCompressible
-git checkout of22x
+git checkout of21x
 wmake yPlusLESWCompressible
 ```
 
 For getting and building from zip:
 ```
-wget "https://github.com/wyldckat/yPlusLESWCompressible/archive/of22x.zip" -O yPlusLESWCompressible.zip
-cd yPlusLESWCompressible-of22x
+wget "https://github.com/wyldckat/yPlusLESWCompressible/archive/of21x.zip" -O yPlusLESWCompressible.zip
+cd yPlusLESWCompressible-of21x
 wmake yPlusLESWCompressible
 ```
 
@@ -83,3 +83,4 @@ Code is based on the original "yPlusLES" from OpenFOAM 2.2.x, as well as:
 
 So in essence, it was a lot of _precision copy-paste-adapt_ coding.
 
+This current branch "of21x" is a backport from OpenFOAM 2.2.x to 2.1.x.
