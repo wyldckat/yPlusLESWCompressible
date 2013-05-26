@@ -25,9 +25,10 @@ Description
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
-#include "incompressible/singlePhaseTransportModel/singlePhaseTransportModel.H"
 
+#include "incompressible/singlePhaseTransportModel/singlePhaseTransportModel.H"
 #include "incompressible/LES/LESModel/LESModel.H"
+
 #include "compressible/LES/LESModel/LESModel.H"
 
 #include "nearWallDist.H"
@@ -78,6 +79,89 @@ void calcIncompressibleYPlus
                     *mag(U.boundaryField()[patchi].snGrad())
                 )
                 /nuLam.boundaryField()[patchi];
+
+            const scalarField& Yp = yPlus.boundaryField()[patchi];
+
+            Info<< "Patch " << patchi
+                << " named " << currPatch.name()
+                << " y+ : min: " << gMin(Yp) << " max: " << gMax(Yp)
+                << " average: " << gAverage(Yp) << nl << endl;
+        }
+    }
+
+    if (!foundNutPatch)
+    {
+        Info<< "    no " << wallFvPatch::typeName << " patches"
+            << endl;
+    }
+}
+
+void calcCompressibleYPlus
+(
+    const fvMesh& mesh,
+    const Time& runTime,
+    const volVectorField& U,
+    volScalarField& yPlus
+)
+{
+    autoPtr<fluidThermo> pThermo
+    (
+        fluidThermo::New(mesh)
+    );
+    fluidThermo& thermo = pThermo();
+
+    volScalarField rho
+    (
+        IOobject
+        (
+            "rho",
+            runTime.timeName(),
+            mesh,
+            IOobject::READ_IF_PRESENT,
+            IOobject::AUTO_WRITE
+        ),
+        thermo.rho()
+    );
+    
+    #include "compressibleCreatePhi.H"
+    
+    Info<< "Creating turbulence model\n" << endl;
+    autoPtr<compressible::LESModel> sgsModel
+    (
+        compressible::LESModel::New
+        (
+            rho,
+            U,
+            phi,
+            thermo
+        )
+    );
+
+    volScalarField::GeometricBoundaryField d = nearWallDist(mesh).y();
+    volScalarField muEff(sgsModel->muEff());
+
+    const fvPatchList& patches = mesh.boundary();
+
+    const volScalarField muLam(sgsModel->mu());
+
+    bool foundNutPatch = false;
+    forAll(patches, patchi)
+    {
+        const fvPatch& currPatch = patches[patchi];
+
+        if (isA<wallFvPatch>(currPatch))
+        {
+            foundNutPatch = true;
+
+            yPlus.boundaryField()[patchi] =
+                d[patchi]
+                *sqrt
+                (
+                    muEff.boundaryField()[patchi]
+                    *mag(U.boundaryField()[patchi].snGrad())
+                )
+                /muLam.boundaryField()[patchi];
+
             const scalarField& Yp = yPlus.boundaryField()[patchi];
 
             Info<< "Patch " << patchi
@@ -160,7 +244,7 @@ int main(int argc, char *argv[])
 
             if (compressible)
             {
-                //calcCompressibleYPlus(mesh, runTime, U, yPlus);
+                calcCompressibleYPlus(mesh, runTime, U, yPlus);
             }
             else
             {
