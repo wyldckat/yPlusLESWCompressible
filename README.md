@@ -69,7 +69,7 @@ Inside the folder `testCases`, you can find a couple of test cases. Inside each 
 
   * To clean up the case, simply run: `./Allclean`
 
-Once each case is executed, you can check the error of the "yPlusLES" vs "yPlus" field, the first being calculated by using the function object version, versus the second one calculated by `yPlusLESWCompressible` version. The resulting difference is given in the field "yPerror".
+Note: validation of results will have to be performed by comparing the results between the builds for 2.2.x and 2.1.x, since OpenFOAM 2.1.x does not provide the "yPlusLES" feature as a function object.
 
 Authorship
 ==========
