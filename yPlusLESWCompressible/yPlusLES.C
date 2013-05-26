@@ -40,6 +40,8 @@ Modifications
        the compressible version of yPlusLES is calculated.
      - from "rhoPimpleFoam", got some ideas on how to set-up the compressible
        part.
+       
+    This file was backported from 2.2.x to 2.1.x.
 
 \*---------------------------------------------------------------------------*/
 
