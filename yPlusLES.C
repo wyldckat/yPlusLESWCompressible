@@ -24,11 +24,16 @@ Description
 
     Default behaviour assumes operating in incompressible mode.
     Use the -compressible option for compressible LES cases.
-    
-    Code based on:
-     - from yPlusRAS, got the information for the basis of the changes.
+
+Modifications
+    Variant created by Bruno Santos (wyldckat@github).
+
+    Code based on the original "yPlusLES" from OpenFOAM 2.2.x, as well as:
+     - from "yPlusRAS", got the information for the basis of the changes.
      - from "src/postProcessing/functionObjects/utilities/yPlusLES" got how
        the compressible version of yPlusLES is calculated.
+     - from "rhoPimpleFoam", got some ideas on how to set-up the compressible
+       part.
 
 \*---------------------------------------------------------------------------*/
 
