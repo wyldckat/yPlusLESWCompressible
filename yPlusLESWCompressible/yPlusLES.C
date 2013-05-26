@@ -1,6 +1,12 @@
 /*---------------------------------------------------------------------------*\
+=========                 |
+\\      /  F ield         | Unsupported Contributions for OpenFOAM
+ \\    /   O peration     |
+  \\  /    A nd           | Copyright (C) 2013 Bruno Santos
+   \\/     M anipulation  |
+-------------------------------------------------------------------------------
 License
-    This file is built to work with OpenFOAM.
+    This file is a derivative work of OpenFOAM.
 
     OpenFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
@@ -26,7 +32,7 @@ Description
     Use the -compressible option for compressible LES cases.
 
 Modifications
-    Variant created by Bruno Santos (wyldckat@github).
+    2013-05-26 - Variant created by Bruno Santos (wyldckat@github).
 
     Code based on the original "yPlusLES" from OpenFOAM 2.2.x, as well as:
      - from "yPlusRAS", got the information for the basis of the changes.
@@ -109,6 +115,7 @@ void calcIncompressibleYPlus
     }
 }
 
+
 void calcCompressibleYPlus
 (
     const fvMesh& mesh,
@@ -190,6 +197,7 @@ void calcCompressibleYPlus
             << endl;
     }
 }
+
 
 int main(int argc, char *argv[])
 {
