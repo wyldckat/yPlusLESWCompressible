@@ -51,6 +51,8 @@ cd yPlusLESWCompressible-of22x
 wmake yPlusLESWCompressible
 ```
 
+There is a backport for OpenFOAM 2.1.x as well! Simply replace on the instructions above `of22x` for `of21x`.
+
 How to use it
 =============
 
