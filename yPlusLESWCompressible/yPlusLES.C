@@ -56,6 +56,8 @@ Modifications
 #include "wallDist.H"
 #include "wallFvPatch.H"
 
+#include "basicPsiThermo.H"
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 void calcIncompressibleYPlus
@@ -126,11 +128,11 @@ void calcCompressibleYPlus
     volScalarField& yPlus
 )
 {
-    autoPtr<basicThermo> pThermo
+    autoPtr<basicPsiThermo> pThermo
     (
-        basicThermo::New(mesh)
+        basicPsiThermo::New(mesh)
     );
-    basicThermo& thermo = pThermo();
+    basicPsiThermo& thermo = pThermo();
 
     volScalarField rho
     (
