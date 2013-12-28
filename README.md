@@ -48,6 +48,7 @@ For getting and building from zip:
 ```
 wget "https://github.com/wyldckat/yPlusLESWCompressible/archive/of210.zip" -O yPlusLESWCompressible.zip
 cd yPlusLESWCompressible-of210
+unzip yPlusLESWCompressible.zip
 wmake yPlusLESWCompressible
 ```
 
