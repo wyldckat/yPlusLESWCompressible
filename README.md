@@ -47,6 +47,7 @@ wmake yPlusLESWCompressible
 For getting and building from zip:
 ```
 wget "https://github.com/wyldckat/yPlusLESWCompressible/archive/of22x.zip" -O yPlusLESWCompressible.zip
+unzip yPlusLESWCompressible.zip
 cd yPlusLESWCompressible-of22x
 wmake yPlusLESWCompressible
 ```
