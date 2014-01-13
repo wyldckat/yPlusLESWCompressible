@@ -42,6 +42,7 @@ git clone git://github.com/wyldckat/yPlusLESWCompressible.git
 cd yPlusLESWCompressible
 git checkout of21x
 wmake yPlusLESWCompressible
+wmake yPlusLESWCompressibleNCombustion
 ```
 
 For getting and building from zip:
@@ -50,6 +51,7 @@ wget "https://github.com/wyldckat/yPlusLESWCompressible/archive/of21x.zip" -O yP
 unzip yPlusLESWCompressible.zip
 cd yPlusLESWCompressible-of21x
 wmake yPlusLESWCompressible
+wmake yPlusLESWCompressibleNCombustion
 ```
 
 How to use it
@@ -60,6 +62,8 @@ After you run a case using LES, then run accordingly:
   * For an incompressible case: `yPlusLESWCompressible`
 
   * For a compressible case: `yPlusLESWCompressible -compressible`
+
+  * For a compressible case using the "hhuCombustionThermo" thermodynamics model: `yPlusLESWCompressibleNCombustion -compressible`
 
 Test cases
 ==========
