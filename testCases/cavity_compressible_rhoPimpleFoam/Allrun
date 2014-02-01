@@ -7,5 +7,5 @@ cd ${0%/*} || exit 1    # run from this directory
 runApplication blockMesh
 runApplication `getApplication`
 
-runApplication yPlusLESWCompressible
+runApplication yPlusLESWCompressible -compressible
 runApplication foamCalc addSubtract yPlus subtract -field yPlusLES -resultName yPerror -time "0.001:"

@@ -27,7 +27,7 @@ endTime         1000;
 
 deltaT          1;
 
-writeControl    timeStep;
+writeControl    runTime;
 
 writeInterval   250;
 
@@ -44,6 +44,10 @@ timeFormat      general;
 timePrecision   6;
 
 runTimeModifiable true;
+
+adjustTimeStep  yes;
+
+maxCo           0.5;
 
 functions
 {
