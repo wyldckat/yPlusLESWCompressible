@@ -179,6 +179,7 @@ void calcCompressibleYPlus
                 (
                     muEff.boundaryField()[patchi]
                     *mag(U.boundaryField()[patchi].snGrad())
+                    *rho.boundaryField()[patchi]
                 )
                 /muLam.boundaryField()[patchi];
 
