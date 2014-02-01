@@ -31,21 +31,24 @@ divSchemes
 {
     default         none;
     div(phi,U)      Gauss linear;
+    div(phi,h)      Gauss linear;
+    div(phi,K)      Gauss linear;
     div(phi,k)      Gauss limitedLinear 1;
     div(phi,B)      Gauss limitedLinear 1;
-    div(phi,nuTilda) Gauss limitedLinear 1;
+    div(phi,muTilda) Gauss limitedLinear 1;
     div(B)          Gauss linear;
-    div((nuEff*dev(T(grad(U))))) Gauss linear;
+    div((muEff*dev2(T(grad(U))))) Gauss linear;
 }
 
 laplacianSchemes
 {
     default         none;
-    laplacian(nuEff,U) Gauss linear corrected;
-    laplacian((1|A(U)),p) Gauss linear corrected;
+    laplacian(muEff,U) Gauss linear corrected;
+    laplacian(Dp,p) Gauss linear corrected;
+    laplacian(alphaEff,h) Gauss linear corrected;
     laplacian(DkEff,k) Gauss linear corrected;
     laplacian(DBEff,B) Gauss linear corrected;
-    laplacian(DnuTildaEff,nuTilda) Gauss linear corrected;
+    laplacian(DmuTildaEff,muTilda) Gauss linear corrected;
 }
 
 interpolationSchemes
