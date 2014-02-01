@@ -22,14 +22,15 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    yPlusLESWCompressible
+    yPlusLESWCompressibleNCombustion
 
 Description
     Calculates and reports yPlus for all wall patches, for the specified times
     when using LES turbulence models.
 
     Default behaviour assumes operating in incompressible mode.
-    Use the -compressible option for compressible LES cases.
+    Use the -compressible option for compressible LES cases, using the combustion
+    reaction models of the category "hhuCombustionThermo" instead of "basicThermo".
 
 Modifications
     2013-05-26 - Variant created by Bruno Santos (wyldckat@github).
@@ -40,6 +41,7 @@ Modifications
        the compressible version of yPlusLES is calculated.
      - from "rhoPimpleFoam", got some ideas on how to set-up the compressible
        part.
+     - Using Combustion
        
     This file was backported from 2.2.x to 2.1.x.
 
@@ -51,12 +53,11 @@ Modifications
 #include "incompressible/LES/LESModel/LESModel.H"
 
 #include "compressible/LES/LESModel/LESModel.H"
+#include "hhuCombustionThermo.H"
 
 #include "nearWallDist.H"
 #include "wallDist.H"
 #include "wallFvPatch.H"
-
-#include "basicPsiThermo.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -128,11 +129,11 @@ void calcCompressibleYPlus
     volScalarField& yPlus
 )
 {
-    autoPtr<basicPsiThermo> pThermo
+    autoPtr<hhuCombustionThermo> pThermo
     (
-        basicPsiThermo::New(mesh)
+        hhuCombustionThermo::New(mesh)
     );
-    basicPsiThermo& thermo = pThermo();
+    hhuCombustionThermo& thermo = pThermo();
 
     volScalarField rho
     (

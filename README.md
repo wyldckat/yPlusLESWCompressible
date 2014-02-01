@@ -47,9 +47,10 @@ wmake yPlusLESWCompressible
 For getting and building from zip:
 ```
 wget "https://github.com/wyldckat/yPlusLESWCompressible/archive/of210.zip" -O yPlusLESWCompressible.zip
-cd yPlusLESWCompressible-of210
 unzip yPlusLESWCompressible.zip
+cd yPlusLESWCompressible-of210
 wmake yPlusLESWCompressible
+wmake yPlusLESWCompressibleNCombustion
 ```
 
 How to use it
@@ -60,6 +61,8 @@ After you run a case using LES, then run accordingly:
   * For an incompressible case: `yPlusLESWCompressible`
 
   * For a compressible case: `yPlusLESWCompressible -compressible`
+
+  * For a compressible case using the "hhuCombustionThermo" thermodynamics model: `yPlusLESWCompressibleNCombustion -compressible`
 
 Test cases
 ==========
