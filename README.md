@@ -9,6 +9,21 @@ It has been created for two reasons:
 
   * And because some people also need this on OpenFOAM 2.1: http://www.cfd-online.com/Forums/openfoam/117857-yplusles.html
 
+Warning
+-------
+
+There was a bug fixed on OpenFOAM 2.2.x related to this:
+
+  * http://www.openfoam.org/mantisbt/view.php?id=1141
+
+  * https://github.com/OpenFOAM/OpenFOAM-2.2.x/commit/5cc33a23168577c9f91564fe6117f4ec1bde1348
+
+Although the bug fix was applied to `yPlusLESWCompressible`, there are some small discrepancies in results, because the `rho` field being used is not exactly the same.
+
+There is an issue open for fixing this, so feel free to contribute: https://github.com/wyldckat/yPlusLESWCompressible/issues/1
+
+  
+  
 Disclaimer and License
 ======================
 
@@ -51,8 +66,6 @@ unzip yPlusLESWCompressible.zip
 cd yPlusLESWCompressible-of22x
 wmake yPlusLESWCompressible
 ```
-
-There is a backport for OpenFOAM 2.1.x and 2.1.0 as well! Simply replace on the instructions above `of22x` for `of21x` or `of210`.
 
 How to use it
 =============
