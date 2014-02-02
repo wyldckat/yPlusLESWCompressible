@@ -182,11 +182,10 @@ void calcCompressibleYPlus
                 d[patchi]
                 *sqrt
                 (
-                    muEff.boundaryField()[patchi]
+                    (muEff.boundaryField()[patchi]/rho.boundaryField()[patchi])
                     *mag(U.boundaryField()[patchi].snGrad())
-                    *rho.boundaryField()[patchi]
                 )
-                /muLam.boundaryField()[patchi];
+                /(muLam.boundaryField()[patchi]/rho.boundaryField()[patchi]);
 
             const scalarField& Yp = yPlus.boundaryField()[patchi];
 
