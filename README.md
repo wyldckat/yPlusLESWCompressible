@@ -18,7 +18,10 @@ There was a bug fixed on OpenFOAM 2.2.x related to this:
 
   * https://github.com/OpenFOAM/OpenFOAM-2.2.x/commit/5cc33a23168577c9f91564fe6117f4ec1bde1348
 
-Although the bug fix was applied to `yPlusLESWCompressible`, there are some small discreptancies in results, because the `rho` field being used is not exactly the same.
+Although the bug fix was applied to `yPlusLESWCompressible`, there are some small discrepancies in results, because the `rho` field being used is not exactly the same.
+
+There is an issue open for fixing this, so feel free to contribute: https://github.com/wyldckat/yPlusLESWCompressible/issues/1
+
   
   
 Disclaimer and License
