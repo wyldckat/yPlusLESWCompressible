@@ -9,6 +9,18 @@ It has been created for two reasons:
 
   * And because some people also need this on OpenFOAM 2.1: http://www.cfd-online.com/Forums/openfoam/117857-yplusles.html
 
+Warning
+-------
+
+There was a bug fixed on OpenFOAM 2.2.x related to this:
+
+  * http://www.openfoam.org/mantisbt/view.php?id=1141
+
+  * https://github.com/OpenFOAM/OpenFOAM-2.2.x/commit/5cc33a23168577c9f91564fe6117f4ec1bde1348
+
+Although the bug fix was applied to `yPlusLESWCompressible`, there are some small discreptancies in results, because the `rho` field being used is not exactly the same.
+  
+  
 Disclaimer and License
 ======================
 
