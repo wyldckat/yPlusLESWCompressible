@@ -58,7 +58,9 @@ Follow the instructions from the respective branch in the same section "How to g
   * For OpenFOAM 2.2.0 to 2.2.x: https://github.com/wyldckat/yPlusLESWCompressible/tree/of22x#how-to-getbuild-yplusleswcompressible
 
   * For OpenFOAM 2.3.0 to 2.3.x: https://github.com/wyldckat/yPlusLESWCompressible/tree/of23x#how-to-getbuild-yplusleswcompressible
-  
+
+  * For all of the other more recent versions of OpenFOAM (including OpenFOAM-dev), this is already implemented.
+
 How to use it
 =============
 
