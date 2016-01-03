@@ -9,6 +9,9 @@ It has been created for two reasons:
 
   * And because some people also need this on OpenFOAM 2.1: http://www.cfd-online.com/Forums/openfoam/117857-yplusles.html
 
+This [git repository](https://github.com/wyldckat/yPlusLESWCompressible) was brought to you by Bruno Santos (wyldckat@github working at [blueCAPE Lda](http://www.bluecape.com.pt)).
+
+
 Warning
 -------
 
